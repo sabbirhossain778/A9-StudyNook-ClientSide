@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import NavLink from './NavLink';
 import Image from 'next/image';
+import { Button } from '@heroui/react';
 
 
 const Navbar = () => {
@@ -20,8 +21,10 @@ const Navbar = () => {
     </>
     );
     return (
-        <div className="navbar bg-base-100 shadow-md px-4 md:px-8 sticky top-0 z-50 ">
+        <div className='bg-cyan-800 sticky top-0 z-50'>
+            <div className="navbar  max-w-7xl mx-auto shadow-md px-4 md:px-8">
 
+            {/* Navbar start */}
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
@@ -45,8 +48,8 @@ const Navbar = () => {
                     </ul>
                 </div>
                 {/* Logo */}
-                <Link href="/" className="text-xl md:text-2xl font-bold text-primary tracking-wide flex items-center gap-1">
-                    Study<span className="text-neutral">Nook</span>
+                <Link href="/" className="text-xl md:text-2xl font-bold text-primary tracking-wide items-center text-white">
+                    StudyNook
                 </Link>
             </div>
 
@@ -59,16 +62,21 @@ const Navbar = () => {
 
             {/* Navbar End */}
             <div className="navbar-end">
-                <ul className='flex gap-2'>
+                <ul className='flex gap-2 items-center'>
                     <li>
-                        <Link href={'/login'}>Login</Link>
+                        <Link href={'/login'}>
+                        <Button variant="secondary">Login</Button>
+                        </Link>
                     </li>
                     <li>
-                        <Link href={'/register'}>Register</Link>
-                    </li>
+                        <Link href={'/register'}>
+                        <Button variant="secondary">Register</Button>
+                        </Link>
+                    </li> 
                 </ul>
             </div>
         </div>
+        </div>    
     );
 };
 
