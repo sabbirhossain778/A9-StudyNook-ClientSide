@@ -73,7 +73,7 @@ const RoomCard = ({ room }) => {
                     </div>
 
                     {/* btn */}
-                    <Link href={`/rooms/${room?._id}`}>
+                    <Link href={`/all-rooms/${room?._id}`}>
                         <button className="bg-slate-950 hover:bg-emerald-600 text-white text-sm font-medium px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
                             View Details
                         </button>

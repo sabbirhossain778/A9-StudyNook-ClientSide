@@ -88,3 +88,90 @@
   background: #24292e; 
   color: #fff;
 }
+
+/* details page */
+
+.luxury-circle-btn {
+    width: 2.25rem; /* 36px */
+    height: 2.25rem; /* 36px */
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+.luxury-circle-btn:hover {
+    background-color: rgba(244, 63, 94, 0.4);
+    color: #fb7185;
+}
+
+
+/* custom border */
+.luxury-border-box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem; /* 16px */
+  pointer-events: none;
+  z-index: 0;
+}
+/* photo div css */
+.luxury-photo-frame {
+  position: relative;
+  width: 100%;
+  z-index: 10;
+  background-color: #171717;
+  border-radius: 0.75rem; /* 12px */
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  aspect-ratio: 4 / 3;
+}
+/* responsive */
+@media (min-width: 768px) {
+  .luxury-photo-frame {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+
+/* edit & delete */
+#edit-btn, #delete-btn {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff;
+  background: transparent;
+  border: 1px solid #ffffff40;
+  cursor: pointer;
+  transition: 0.5s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#edit-btn:hover, #edit-btn:focus {
+  color: #ffffff;
+  background: #008cff;
+  border: 1px solid #008cff;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+  box-shadow: 0 0 10px #008cff, 0 0 30px #008cff;
+}
+
+#delete-btn:hover, #delete-btn:focus {
+  color: #ffffff;
+  background: #f43f5e;
+  border: 1px solid #f43f5e;
+  text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+  box-shadow: 0 0 10px #f43f5e, 0 0 30px #f43f5e;
+}
