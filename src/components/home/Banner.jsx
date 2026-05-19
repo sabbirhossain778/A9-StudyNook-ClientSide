@@ -3,7 +3,8 @@ import Link from "next/link";
 
 const Banner = () => {
     return (
-        <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-slate-900 container mx-auto">
+       <div className="w-full bg-[#0b1329]">
+         <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-slate-900 container mx-auto">
 
             {/* bg */}
             <div className="absolute inset-0 z-0">
@@ -74,6 +75,7 @@ const Banner = () => {
             </div>
 
         </div>
+       </div>
     );
 };
 

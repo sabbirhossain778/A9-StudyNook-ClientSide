@@ -1,7 +1,11 @@
 import React from 'react';
 import RoomCard from '../shared/Card';
+import { featureRooms } from '@/lib/rooms/data';
 
-const Featured = () => {
+const Featured = async () => {
+
+    const featuredRooms = await featureRooms();
+
     return (
         <div className='bg-base-200'>
             <div className='max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16'>
@@ -17,11 +21,13 @@ const Featured = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                    <RoomCard />
-                   
+                    {
+                        featuredRooms.map(room => (
+                            <RoomCard key={room._id} room={room} />
+                        ))
+                    }
+
                 </div>
-
-
             </div>
         </div>
     );
