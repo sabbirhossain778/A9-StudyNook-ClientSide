@@ -149,30 +149,30 @@ const RoomDetailsPage = async ({ params }) => {
                                 </p>
                             </div>
 
-                            {/* book now / login btn */}
-                            <div className="flex-grow sm:flex-grow-0">
-                                {isLoggedIn ? (
-                                    <button className="w-full sm:w-auto bg-[#ff6b35] hover:bg-white text-black font-bold px-6 py-3 rounded-lg transition duration-200">
-                                        Book This Space
-                                    </button>
-                                ) : (
+                            {/* book now / login / edit-delete btn */}
+                            <div className="grow sm:grow-0">
+                                {!isLoggedIn ? (
                                     <Link href="/login" className="block w-full">
                                         <Button className="w-full sm:w-auto bg-[#ff6b35] hover:bg-white text-black font-bold  px-6 py-3 rounded-lg transition duration-200">
                                             Login to Book
                                         </Button>
                                     </Link>
+                                ) : isOwner ? (
+                                    <div className="flex items-center gap-3">
+                                        <button id="edit-btn" className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2.5 rounded-lg text-sm transition duration-200">
+                                            📝 Edit Listing
+                                        </button>
+                                        <button id="delete-btn" className="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2.5 rounded-lg text-sm transition duration-200">
+                                            🗑️ Delete Listing
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <button className="w-full sm:w-auto bg-[#ff6b35] hover:bg-white text-black font-bold px-6 py-3 rounded-lg transition duration-200">
+                                        Book This Space
+                                    </button>
                                 )}
                             </div>
                         </div>
-
-                        {/* Edit & Delete btn */}
-                        {isOwner && (
-                            <div className="pt-4 flex items-center justify-end gap-3 border-t border-dashed border-white/[0.05]">
-                                <button id="edit-btn">📝 Edit Listing</button>
-                                <button id="delete-btn">🗑️ Delete Listing</button>
-
-                            </div>
-                        )}
 
                     </div>
                 </div>
@@ -183,4 +183,3 @@ const RoomDetailsPage = async ({ params }) => {
 };
 
 export default RoomDetailsPage;
-

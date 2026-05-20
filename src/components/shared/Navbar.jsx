@@ -71,7 +71,7 @@ const Navbar = () => {
 
                 {/* Navbar Center (Desktop) */}
                 <div className="navbar-center hidden md:flex">
-                    <ul className="menu menu-horizontal px-1 font-semibold gap-6 text-base text-white/90">
+                    <ul className="menu menu-horizontal px-1 font-semibold gap-2 text-base text-white/90">
                         {publicLinks}
                         {privateLinks}
                     </ul>
