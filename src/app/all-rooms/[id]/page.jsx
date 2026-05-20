@@ -1,9 +1,10 @@
-import React from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@heroui/react';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
+import { DeleteModal } from '@/components/modals/DeleteModal';
 
 
 const fetchSingleRoom = async (id) => {
@@ -18,9 +19,9 @@ const fetchSingleRoom = async (id) => {
 };
 
 const RoomDetailsPage = async ({ params }) => {
+
     const { id } = await params;
     const room = await fetchSingleRoom(id);
-    // console.log(room);
     const session = await auth.api.getSession({
         headers: await headers()
     });
@@ -48,7 +49,6 @@ const RoomDetailsPage = async ({ params }) => {
         amenities = [],
         bookingCount = 0
     } = room;
-
 
     const isLoggedIn = !!user;
     const isOwner = user && room && user.email === room.userEmail;
@@ -169,7 +169,7 @@ const RoomDetailsPage = async ({ params }) => {
                         {isOwner && (
                             <div className="pt-4 flex items-center justify-end gap-3 border-t border-dashed border-white/[0.05]">
                                 <button id="edit-btn">📝 Edit Listing</button>
-                                <button id="delete-btn">🗑️ Delete Listing</button>
+                                <DeleteModal roomId={room._id} />
 
                             </div>
                         )}
