@@ -31,7 +31,8 @@ const AddRoomPage = () => {
             capacity: Number(roomData.capacity),
             hourlyRate: Number(roomData.hourlyRate),
             amenities: selectedAmenities,
-            bookingCount: 0
+            bookingCount: 0,
+            userEmail: session?.user?.email
         };
 
         try {
