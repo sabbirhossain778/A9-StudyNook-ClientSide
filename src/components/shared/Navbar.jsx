@@ -4,109 +4,138 @@ import React, { useState } from 'react';
 import NavLink from './NavLink';
 import Image from 'next/image';
 import { Button } from '@heroui/react';
+import { authClient } from '@/lib/auth-client';
+import { RxAvatar } from 'react-icons/rx';
 
 
 const Navbar = () => {
-    const [user, setUser] = useState({
-        name: "Sabbir Hossain",
-        photoURL: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"
-    });
+    const { data: session, isPending } = authClient.useSession();
+    const user = session?.user;
 
-    const navLinks = (<>
-        <li><NavLink href="/" className="hover:text-primary transition-colors">Home</NavLink></li>
-        <li><NavLink href="/all-rooms" className="hover:text-primary transition-colors">All Rooms</NavLink></li>
-        <li><NavLink href="/my-listings" className="hover:text-primary transition-colors">My Listings</NavLink></li>
-        <li><NavLink href="/my-bookings" className="hover:text-primary transition-colors">My Bookings</NavLink></li>
-        <li><NavLink href="/add-room" className="hover:text-primary transition-colors">Add Room</NavLink></li>
-    </>
+    const handleLogout = async () => {
+        await authClient.signOut();
+        window.location.href = "/login";
+    };
+
+    const publicLinks = (
+        <>
+            <li><NavLink href="/" className="hover:text-primary  transition-colors">Home</NavLink></li>
+            <li><NavLink href="/all-rooms" className="hover:text-primary transition-colors">Rooms</NavLink></li>
+        </>
     );
-    return (
-        <div className='bg-cyan-800 sticky top-0 z-50'>
-            <div className="navbar  max-w-7xl mx-auto shadow-md px-4 md:px-8">
 
-            {/* Navbar start */}
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16" />
-                        </svg>
+    const privateLinks = user && (
+        <>
+            <li><NavLink href="/add-room" className="hover:text-primary transition-colors">Add Room</NavLink></li>
+            <li><NavLink href="/my-listings" className="hover:text-primary transition-colors">My Listings</NavLink></li>
+            <li><NavLink href="/my-bookings" className="hover:text-primary transition-colors">My Bookings</NavLink></li>
+        </>
+    );
+
+    return (
+        <div className='bg-cyan-800 sticky top-0 z-50 shadow-md'>
+            <div className="navbar max-w-7xl mx-auto px-4 md:px-8 text-white">
+
+                {/* Navbar start */}
+                <div className="navbar-start">
+                    <div className="dropdown">
+                        <div tabIndex={0} role="button" className="btn btn-ghost md:hidden text-white">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h8m-8 6h16" />
+                            </svg>
+                        </div>
+                        {/* Menu dropdown */}
+                        <ul
+                            tabIndex={0}
+                            className="menu menu-sm dropdown-content mt-3 z-[999] p-3 shadow-2xl bg-white rounded-2xl w-52 font-bold gap-1 text-slate-900 border border-slate-100">
+                            <div className="flex flex-col gap-1 text-slate-900 [&_a]:text-slate-900 [&_a]:font-bold active:[&_a]:text-white">
+                                {publicLinks}
+                                {privateLinks}
+                            </div>
+                        </ul>
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content mt-3 z-1 p-2 shadow bg-base-100 rounded-box w-52 font-medium gap-2">
-                        {navLinks}
+                    {/* Logo */}
+                    <Link href="/" className="text-xl md:text-2xl font-bold tracking-wide text-white">
+                        StudyNook
+                    </Link>
+                </div>
+
+                {/* Navbar Center (Desktop) */}
+                <div className="navbar-center hidden md:flex">
+                    <ul className="menu menu-horizontal px-1 font-semibold gap-6 text-base text-white/90">
+                        {publicLinks}
+                        {privateLinks}
                     </ul>
                 </div>
-                {/* Logo */}
-                <Link href="/" className="text-xl md:text-2xl font-bold text-primary tracking-wide items-center text-white">
-                    StudyNook
-                </Link>
-            </div>
 
-            {/* Navbar Center */}
-            <div className="navbar-center hidden md:flex">
-                <ul className="menu menu-horizontal px-1 font-semibold gap-6 text-base text-neutral-content">
-                    {navLinks}
-                </ul>
-            </div>
-
-            {/* Navbar End */}
-            <div className="navbar-end">
-                <ul className='flex gap-2 items-center'>
-                    <li>
-                        <Link href={'/login'}>
-                        <Button variant="secondary">Login</Button>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href={'/register'}>
-                        <Button variant="secondary">Register</Button>
-                        </Link>
-                    </li> 
-                </ul>
+                {/* Navbar End */}
+                <div className="navbar-end">
+                    {isPending ? (
+                        <span className="loading loading-spinner loading-sm text-white"></span>
+                    ) : user ? (
+                        /* Logged In: Profile Dropdown */
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar online border-2 border-white/50 p-0.5">
+                                <div className="w-10 rounded-full overflow-hidden flex items-center justify-center bg-cyan-700">
+                                    {user.image ? (
+                                        <Image
+                                            src={user.image}
+                                            alt={user.name || "User"}
+                                            width={40}
+                                            height={40}
+                                            unoptimized={true}
+                                            className="rounded-full aspect-square object-cover"
+                                        />
+                                    ) : (
+                                        <RxAvatar className="text-3xl text-white" />
+                                    )}
+                                </div>
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu menu-sm dropdown-content mt-3 z-50 p-3 shadow-xl bg-base-100 rounded-xl w-56 gap-1 text-gray-800 font-medium">
+                                <div className="px-3 py-2 border-b border-gray-100 mb-1">
+                                    <p className="font-bold text-gray-900 truncate">{user.name}</p>
+                                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                                </div>
+                                <li className="md:hidden"><Link href="/add-room">Add Room</Link></li>
+                                <li><Link href="/my-listings">My Listings</Link></li>
+                                <li><Link href="/my-bookings">My Bookings</Link></li>
+                                <div className="border-t border-gray-100 my-1"></div>
+                                <li>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="btn btn-sm btn-error btn-outline mt-1 w-full text-xs font-bold rounded-lg"
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    ) : (
+                        /* Not logged */
+                        <div className='flex gap-2 items-center'>
+                            <Link href={'/login'}>
+                                <Button size="sm" className="bg-white text-cyan-800 font-bold rounded-full px-4 hover:bg-gray-100">Login</Button>
+                            </Link>
+                            <Link href={'/signup'}>
+                                <Button size="sm" className="bg-cyan-900 text-white font-bold rounded-full px-4 border border-white/20 hover:bg-cyan-950">Register</Button>
+                            </Link>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
-        </div>    
     );
 };
 
 export default Navbar;
-
-
-
-// {
-//     user ? (
-//         <div className="dropdown dropdown-end">
-            
-//             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar online border-2 border-primary/20">
-//                 <div className="w-10 rounded-full">
-//                     <img alt={user.name} src={user.photoURL} />
-//                 </div>
-//             </div>
-            
-//             <ul
-//                 tabIndex={0}
-//                 className="menu menu-sm dropdown-content mt-3 z-[1] p-3 shadow bg-base-100 rounded-box w-52 gap-2">
-//                 <div className="px-2 py-1 border-b border-base-200">
-//                     <p className="font-semibold text-neutral">{user.name}</p>
-//                 </div>
-//                 <li><a href="/my-bookings" className="mt-1">Dashboard</a></li>
-//                 <li><button className="btn btn-sm btn-error btn-outline mt-2 w-full text-xs">Logout</button></li>
-//             </ul>
-//         </div>
-//     ) : (
-//         <a href="/login" className="btn btn-primary btn-sm md:btn-md px-6 text-white font-semibold rounded-lg shadow-md hover:bg-primary-focus transition-all">
-//             Login
-//         </a>
-//     )
-// }
