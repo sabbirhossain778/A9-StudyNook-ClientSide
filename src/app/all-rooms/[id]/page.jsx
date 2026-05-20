@@ -18,6 +18,8 @@ const fetchSingleRoom = async (id) => {
 const RoomDetailsPage = async ({ params }) => {
     const { id } = await params;
     const room = await fetchSingleRoom(id);
+    console.log(room);
+    
 
     if (!room) {
         return (
@@ -36,7 +38,7 @@ const RoomDetailsPage = async ({ params }) => {
         description = "No description provided for this luxury workspace.", 
         floor = "G Floor", 
         capacity = "Not Specified", 
-        price = "0", 
+        hourlyRate = "0", 
         amenities = [],
         bookingCount = 0 
     } = room;
@@ -135,9 +137,9 @@ const RoomDetailsPage = async ({ params }) => {
                         <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                             {/* rate */}
                             <div>
-                                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Hourly Rate</p>
-                                <p className="text-3xl font-black text-white mt-1">
-                                    ${price}<span className="text-sm font-normal text-slate-500">/hr</span>
+                                <p className="text-[12px] text-slate-400 uppercase tracking-widest font-bold">Hourly Rate</p>
+                                <p className="text-3xl  text-white mt-1">
+                                    ${hourlyRate}<span className="text-sm font-normal text-slate-400 text-[16px]">/hr</span>
                                 </p>
                             </div>
 
