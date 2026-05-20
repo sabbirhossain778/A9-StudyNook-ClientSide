@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-toastify";
 import { Button, Modal } from "@heroui/react";
 import { BiTrash } from "react-icons/bi";
 import { useRouter } from "next/navigation";
@@ -13,15 +14,18 @@ export function DeleteModal({ roomId, onDeleteSuccess }) {
             });
 
             if (res.ok) {
-                const data = await res.json();
-                // console.log("Deleted successfully:", data);
+                toast.success("Room deleted successfully");
 
                 if (onDeleteSuccess) onDeleteSuccess();
                 router.push("/my-listings");
                 router.refresh();
             }
+            else {
+                toast.error("Failed to delete room");
+            }
         } catch (error) {
             console.error("Error deleting destination:", error);
+            toast.error("Something went wrong");
         }
     };
 
@@ -44,7 +48,7 @@ export function DeleteModal({ roomId, onDeleteSuccess }) {
                                 This action cannot be undone. This will permanently delete the workspace listing from the database network.
                             </p>
                         </Modal.Body>
-                        
+
                         <Modal.Footer className="flex items-center justify-end gap-3 pt-4">
                             <Button slot="close" variant="plain" className="text-slate-500 hover:bg-slate-100 rounded-xl h-10 px-4 text-sm font-medium">
                                 Cancel

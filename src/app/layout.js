@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
@@ -29,6 +31,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <Footer />
+        <ToastContainer position="top-center" theme="dark" autoClose={3000} />
         </body>
         
     </html>

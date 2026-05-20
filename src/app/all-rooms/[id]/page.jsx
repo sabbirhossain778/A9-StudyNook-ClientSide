@@ -5,6 +5,7 @@ import { Button } from '@heroui/react';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { DeleteModal } from '@/components/modals/DeleteModal';
+import { EditModal } from '@/components/modals/EditModal';
 
 
 const fetchSingleRoom = async (id) => {
@@ -152,7 +153,7 @@ const RoomDetailsPage = async ({ params }) => {
                             {/* book now / login btn */}
                             <div className="flex-grow sm:flex-grow-0">
                                 {isLoggedIn ? (
-                                    <button className="w-full sm:w-auto bg-[#ff6b35] hover:bg-white text-black font-bold px-6 py-3 rounded-lg transition duration-200">
+                                    <button className="w-full sm:w-auto bg-white text-black font-bold px-6 py-3 rounded-lg transition duration-200">
                                         Book This Space
                                     </button>
                                 ) : (
@@ -167,9 +168,9 @@ const RoomDetailsPage = async ({ params }) => {
 
                         {/* Edit & Delete btn */}
                         {isOwner && (
-                            <div className="pt-4 flex items-center justify-end gap-3 border-t border-dashed border-white/[0.05]">
-                                <button id="edit-btn">📝 Edit Listing</button>
-                                <DeleteModal roomId={room._id} />
+                            <div className="pt-4 flex items-center justify-end gap-3 border-t border-dashed border-white/5">
+                                <EditModal room={room} userEmail={user?.email} />
+                                <DeleteModal roomId={room._id} userEmail={user?.email} />
 
                             </div>
                         )}
