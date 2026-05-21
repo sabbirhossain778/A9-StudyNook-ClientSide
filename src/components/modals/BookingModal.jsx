@@ -16,20 +16,19 @@ export function BookingModal({ room, userEmail }) {
     const [date, setDate] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
-    const [totalCost, setTotalCost] = useState(0);
+    // const [totalCost, setTotalCost] = useState(0);
 
     const today = new Date().toISOString().split("T")[0];
 
-
+    let totalCost = 0;
     if (startTime && endTime) {
         const startHour = parseInt(startTime.split(":")[0]);
         const endHour = parseInt(endTime.split(":")[0]);
 
         if (endHour > startHour) {
-            const totalCost = (endHour - startHour) * Number(hourlyRate);
+            totalCost = (endHour - startHour) * Number(hourlyRate);
         }
-    }
-
+        }
 
     const filteredEndTimeSlots = TIME_SLOTS.filter((time) => {
         if (!startTime) return true;
@@ -43,8 +42,10 @@ export function BookingModal({ room, userEmail }) {
             return toast.error("Please fill all required fields");
         }
 
+        const specialNote = e.target.specialNote?.value || "";
+
         const bookingPayload = {
-            roomId: _id, roomName, userEmail, date, startTime, endTime, totalCost
+            roomId: _id, roomName, userEmail, date, startTime, endTime, totalCost, specialNote
         };
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-bookings`, {
@@ -114,6 +115,11 @@ export function BookingModal({ room, userEmail }) {
                                     <span className="text-xl font-bold text-[#ff6b35]">${totalCost}</span>
                                 </div>
 
+                                {/* note */}
+                                <div>
+                                    <label className="text-xs font-bold uppercase text-slate-400">Special Note (Optional)</label>
+                                    <TextArea name="specialNote" placeholder="Enter any specific requests or instructions..." className="mt-1 bg-white/5 border border-white/10 text-white" />
+                                </div>
 
                                 {/* btn */}
                                 <Modal.Footer className="p-0 pt-2 flex gap-3">
@@ -133,3 +139,4 @@ export function BookingModal({ room, userEmail }) {
         </Modal>
     );
 }
+
