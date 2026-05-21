@@ -4,7 +4,7 @@ import { Button, FieldError, Input, Label, Modal, Surface, TextArea, TextField }
 import { BiEdit } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 
-export function EditModal({ room }) {
+export function EditModal({ room, userEmail }) {
 
     const router = useRouter();
 
@@ -16,7 +16,7 @@ export function EditModal({ room }) {
         const updatedRoomData = Object.fromEntries(formData.entries());
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${_id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${_id}?email=${userEmail}`, {
                 method: "PATCH",
                 headers: {
                     "content-type": "application/json",

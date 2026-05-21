@@ -6,6 +6,7 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { DeleteModal } from '@/components/modals/DeleteModal';
 import { EditModal } from '@/components/modals/EditModal';
+import { BookingModal } from '@/components/modals/BookingModal';
 
 
 const fetchSingleRoom = async (id) => {
@@ -153,9 +154,7 @@ const RoomDetailsPage = async ({ params }) => {
                             {/* book now / login btn */}
                             <div className="flex-grow sm:flex-grow-0">
                                 {isLoggedIn ? (
-                                    <button className="w-full sm:w-auto bg-white text-black font-bold px-6 py-3 rounded-lg transition duration-200">
-                                        Book This Space
-                                    </button>
+                                    <BookingModal room={room} userEmail={user?.email} />
                                 ) : (
                                     <Link href="/login" className="block w-full">
                                         <Button className="w-full sm:w-auto bg-[#ff6b35] hover:bg-white text-black font-bold  px-6 py-3 rounded-lg transition duration-200">

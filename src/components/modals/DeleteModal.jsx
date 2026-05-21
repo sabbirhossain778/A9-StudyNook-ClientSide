@@ -4,12 +4,12 @@ import { Button, Modal } from "@heroui/react";
 import { BiTrash } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 
-export function DeleteModal({ roomId, onDeleteSuccess }) {
+export function DeleteModal({ roomId, userEmail, onDeleteSuccess }) {
 
     const router = useRouter();
     const handleDelete = async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${roomId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${roomId}?email=${userEmail}`, {
                 method: "DELETE",
             });
 
