@@ -1,11 +1,19 @@
 "use client";
 import { Button, Modal } from "@heroui/react";
 import { toast } from "react-toastify";
+import { useSession } from "@/lib/auth-client";
 
 export function CancelModal({ bookingId, userEmail, onCancelSuccess }) {
+
+    const { data: session } = useSession(); 
+        const token = session?.token;
+
     const handleCancel = async () => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/${bookingId}/cancel?email=${userEmail}`, {
             method: "PATCH",
+            headers: {
+                authorization: `Bearer ${token}`
+            }
         });
 
         if (res.ok) {

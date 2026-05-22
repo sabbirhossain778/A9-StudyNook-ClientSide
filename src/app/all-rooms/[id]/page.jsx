@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@heroui/react';
@@ -8,22 +7,40 @@ import { DeleteModal } from '@/components/modals/DeleteModal';
 import { EditModal } from '@/components/modals/EditModal';
 import { BookingModal } from '@/components/modals/BookingModal';
 
-
-const fetchSingleRoom = async (id) => {
-    try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${id}`, { cache: 'no-store' });
-        if (!res.ok) return null;
-        return await res.json();
-    } catch (error) {
-        console.error("Error fetching room:", error);
-        return null;
-    }
+export const metadata = {
+    title: "StudyNook – Room Details",
 };
+
+
+// const fetchSingleRoom = async (id) => {
+//     try {
+//         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${id}`, { cache: 'no-store' });
+//         if (!res.ok) return null;
+//         return await res.json();
+//     } catch (error) {
+//         console.error("Error fetching room:", error);
+//         return null;
+//     }
+// };
 
 const RoomDetailsPage = async ({ params }) => {
 
     const { id } = await params;
-    const room = await fetchSingleRoom(id);
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+    // console.log( token );
+
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${id}`, {
+        cache: 'no-store',
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
+    const room = res.ok ? await res.json() : null;
+
+
     const session = await auth.api.getSession({
         headers: await headers()
     });

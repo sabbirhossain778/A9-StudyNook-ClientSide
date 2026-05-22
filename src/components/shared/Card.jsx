@@ -68,7 +68,7 @@ const RoomCard = ({ room }) => {
                     <div>
                         <p className="text-xs text-slate-400 uppercase tracking-wider font-medium">Hourly Rate</p>
                         <p className="text-2xl font-bold text-slate-900">
-                            ${room?.hourlyRate || "5"}<span className="text-xs text-slate-400 font-normal">/hr</span>
+                            ${room?.price || "5"}<span className="text-xs text-slate-400 font-normal">/hr</span>
                         </p>
                     </div>
 
@@ -85,4 +85,3 @@ const RoomCard = ({ room }) => {
 };
 
 export default RoomCard;
-

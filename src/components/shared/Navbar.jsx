@@ -86,17 +86,17 @@ const Navbar = () => {
                         <div className="dropdown dropdown-end">
                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar online border-2 border-white/50 p-0.5">
                                 <div className="w-10 rounded-full overflow-hidden flex items-center justify-center bg-cyan-700">
-                                    {user.image ? (
+                                    {user?.image ? (
                                         <Image
                                             src={user.image}
-                                            alt={user.name || "User"}
+                                            alt="User avatar"
                                             width={40}
                                             height={40}
                                             unoptimized={true}
                                             className="rounded-full aspect-square object-cover"
                                         />
                                     ) : (
-                                        <RxAvatar className="text-3xl text-white" />
+                                        <RxAvatar className="text-[30px] md:text-[35px] text-white" />
                                     )}
                                 </div>
                             </div>

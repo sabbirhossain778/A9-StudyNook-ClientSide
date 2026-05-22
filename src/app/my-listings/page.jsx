@@ -4,9 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
 import RoomCard from '@/components/shared/Card';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 
 const MyListingsPage = () => {
+    
+    useDocumentTitle("StudyNook – My Listings");
     const router = useRouter();
     const { data: session, isPending } = authClient.useSession();
     const [myRooms, setMyRooms] = useState([]);

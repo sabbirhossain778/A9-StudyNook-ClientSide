@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { authClient } from '@/lib/auth-client';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
+
 
 const AddRoomPage = () => {
+    useDocumentTitle("StudyNook – Add Room");
     const router = useRouter();
     const { data: session } = authClient.useSession();
     const [loading, setLoading] = useState(false);

@@ -3,35 +3,40 @@ import { headers } from 'next/headers';
 import Link from 'next/link';
 import { CancelModal } from '@/components/modals/CancelModal';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
-
-const fetchMyBookings = async (email) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-bookings?email=${email}`, { cache: 'no-store' });
-    if (!res.ok) return [];
-    return await res.json();
+export const metadata = {
+    title: "StudyNook – My Bookings",
 };
 
+const handleRefresh = async () => {
+    'use server';
+    revalidatePath('/my-bookings');
+};
+
+
 const MyBookingsPage = async () => {
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    });
+
     const session = await auth.api.getSession({
         headers: await headers()
     });
     const user = session?.user;
 
     if (!user) {
-        return (
-            <div className="min-h-screen bg-white flex items-center justify-center text-slate-500">
-                Please login to view your bookings.
-            </div>
-        );
+        redirect('/login');
     }
 
-    const bookings = await fetchMyBookings(user.email);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-bookings?email=${user.email}`, {
+        cache: 'no-store',
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
 
-    const handleRefresh = async () => {
-        'use server';
-        revalidatePath('/my-bookings');
-    };
-
+    const bookings = res.ok ? await res.json() : [];
     const todayStr = new Date().toISOString().split('T')[0];
 
     return (
@@ -89,8 +94,8 @@ const MyBookingsPage = async () => {
                                             {/* status */}
                                             <td className="py-4">
                                                 <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-medium tracking-wide ${booking.status === "cancelled"
-                                                        ? "bg-rose-50 text-rose-600 border border-rose-100"
-                                                        : "bg-emerald-50 text-emerald-600 border border-emerald-100"
+                                                    ? "bg-rose-50 text-rose-600 border border-rose-100"
+                                                    : "bg-emerald-50 text-emerald-600 border border-emerald-100"
                                                     }`}>
                                                     {booking.status || "confirmed"}
                                                 </span>

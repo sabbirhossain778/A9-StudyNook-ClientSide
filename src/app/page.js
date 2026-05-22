@@ -3,6 +3,9 @@ import Featured from "@/components/home/Featured";
 import WhyChoseUs from "@/components/home/WhyChoseUs";
 import WorkSection from "@/components/home/WorkSection";
 
+export const metadata = {
+    title: "StudyNook – Home",
+};
 
 export default function Home() {
   return (

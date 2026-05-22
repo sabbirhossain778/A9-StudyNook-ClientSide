@@ -1,8 +1,12 @@
 "use client";
 import RoomCard from '@/components/shared/Card';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 import React, { useState, useEffect } from 'react';
 
+
 const AllRoomPage = () => {
+
+    // useDocumentTitle("StudyNook – Available Rooms");
     const [rooms, setRooms] = useState([]);
     const [search, setSearch] = useState("");
     const [selectedAmenities, setSelectedAmenities] = useState([]);
@@ -11,6 +15,7 @@ const AllRoomPage = () => {
     const amenitiesList = ["Whiteboard", "Projector", "Wi-Fi", "Power Outlets", "Quiet Zone", "Air Conditioning"];
 
     useEffect(() => {
+        document.title = "StudyNook – Available Rooms";
         setTimeout(() => {
             setLoading(true);
         }, 1);

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button, Modal, Input, TextArea } from "@heroui/react";
 import { toast } from "react-toastify";
-
+import { useSession } from "@/lib/auth-client";
 
 const TIME_SLOTS = Array.from({ length: 13 }, (_, i) => {
     const hour = i + 8;
@@ -12,6 +12,8 @@ const TIME_SLOTS = Array.from({ length: 13 }, (_, i) => {
 export function BookingModal({ room, userEmail }) {
     const { _id, roomName, hourlyRate } = room;
 
+    const { data: session } = useSession(); 
+    const token = session?.token;
 
     const [date, setDate] = useState("");
     const [startTime, setStartTime] = useState("");
@@ -50,7 +52,9 @@ export function BookingModal({ room, userEmail }) {
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-bookings`, {
             method: "POST",
-            headers: { "content-type": "application/json" },
+            headers: { "content-type": "application/json",
+              authorization: `Bearer ${token}`  
+             },
             body: JSON.stringify(bookingPayload),
         });
         const data = await res.json();
