@@ -6,15 +6,20 @@ import Image from 'next/image';
 import { Button } from '@heroui/react';
 import { authClient } from '@/lib/auth-client';
 import { RxAvatar } from 'react-icons/rx';
+import { useRouter } from 'next/navigation';
+import { toast } from "react-toastify";
+
 
 
 const Navbar = () => {
     const { data: session, isPending } = authClient.useSession();
     const user = session?.user;
+    const router = useRouter();
 
     const handleLogout = async () => {
         await authClient.signOut();
-        window.location.href = "/login";
+        toast.success("Logged out successfully!");
+        router.push("/login");
     };
 
     const publicLinks = (

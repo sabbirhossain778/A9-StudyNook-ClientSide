@@ -11,7 +11,7 @@ import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 
 const SignUpPage = () => {
-    useDocumentTitle("StudyNook – Login");
+    useDocumentTitle("StudyNook – Signup");
     const [isShowPassword, setIsShowPassword] = useState(false);
     const router = useRouter();
 

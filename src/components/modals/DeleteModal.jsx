@@ -3,14 +3,21 @@ import { toast } from "react-toastify";
 import { Button, Modal } from "@heroui/react";
 import { BiTrash } from "react-icons/bi";
 import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export function DeleteModal({ roomId, userEmail, onDeleteSuccess }) {
+
+    const { data: session } = useSession(); 
+    const token = session?.token;
 
     const router = useRouter();
     const handleDelete = async () => {
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${roomId}?email=${userEmail}`, {
                 method: "DELETE",
+                headers: {
+                authorization: `Bearer ${token}`
+            }
             });
 
             if (res.ok) {

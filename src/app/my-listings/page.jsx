@@ -8,10 +8,14 @@ import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 
 const MyListingsPage = () => {
-    
+
     useDocumentTitle("StudyNook – My Listings");
+
     const router = useRouter();
+
     const { data: session, isPending } = authClient.useSession();
+    const token = session?.token;
+
     const [myRooms, setMyRooms] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -21,7 +25,11 @@ const MyListingsPage = () => {
             if (!session) return;
 
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-listings?email=${session.user.email}`);
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-listings?email=${session.user.email}`, {
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    }
+                });
                 if (res.ok) {
                     const data = await res.json();
                     setMyRooms(data);

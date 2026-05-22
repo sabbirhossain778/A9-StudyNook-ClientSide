@@ -6,7 +6,7 @@ import { useSession } from "@/lib/auth-client";
 export function CancelModal({ bookingId, userEmail, onCancelSuccess }) {
 
     const { data: session } = useSession(); 
-        const token = session?.token;
+    const token = session?.token;
 
     const handleCancel = async () => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings/${bookingId}/cancel?email=${userEmail}`, {

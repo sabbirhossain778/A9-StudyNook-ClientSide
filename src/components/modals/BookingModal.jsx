@@ -59,7 +59,7 @@ export function BookingModal({ room, userEmail }) {
         });
         const data = await res.json();
 
-        if (res.ok) {
+        if (res.ok && (data.success || data.insertedId)) {
             toast.success("Room booked successfully!");
             setStartTime("");
             setEndTime("");

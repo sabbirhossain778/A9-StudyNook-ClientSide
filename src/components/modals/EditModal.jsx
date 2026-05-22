@@ -3,10 +3,14 @@ import { toast } from "react-toastify";
 import { Button, FieldError, Input, Label, Modal, Surface, TextArea, TextField } from "@heroui/react";
 import { BiEdit } from "react-icons/bi";
 import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export function EditModal({ room, userEmail }) {
 
     const router = useRouter();
+
+    const { data: session } = useSession();
+    const token = session?.token;
 
     const { _id, roomName, image, description, floor, capacity, hourlyRate } = room;
 
@@ -15,11 +19,15 @@ export function EditModal({ room, userEmail }) {
         const formData = new FormData(e.currentTarget);
         const updatedRoomData = Object.fromEntries(formData.entries());
 
+        updatedRoomData.capacity = Number(updatedRoomData.capacity);
+        updatedRoomData.hourlyRate = Number(updatedRoomData.hourlyRate);
+
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-rooms/${_id}?email=${userEmail}`, {
                 method: "PATCH",
                 headers: {
                     "content-type": "application/json",
+                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(updatedRoomData),
             });
@@ -38,7 +46,6 @@ export function EditModal({ room, userEmail }) {
 
     return (
         <Modal>
-            {/* 📝 এডিট ট্রিগার বাটন */}
             <Button variant="secondary">
                 📝 Edit Listing
             </Button>

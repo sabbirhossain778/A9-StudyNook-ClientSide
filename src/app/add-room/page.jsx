@@ -7,9 +7,14 @@ import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 
 const AddRoomPage = () => {
+
     useDocumentTitle("StudyNook – Add Room");
+
     const router = useRouter();
+
     const { data: session } = authClient.useSession();
+    const token = session?.token;
+
     const [loading, setLoading] = useState(false);
 
     const amenityOptions = [
@@ -43,6 +48,7 @@ const AddRoomPage = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(finalRoomData),
             });
@@ -50,7 +56,7 @@ const AddRoomPage = () => {
             const data = await res.json();
             // console.log('Server Response Data:', data);
 
-            if (res.ok && data.insertedId) {
+            if (res.ok) {
                 toast.success("Room added successfully!");
                 router.push('/my-listings');
             } else {
