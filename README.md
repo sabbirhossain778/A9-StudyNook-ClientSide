@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📚 StudyNook - Workspace & Study Room Booking Platform
 
-## Getting Started
+**StudyNook** একটি আধুনিক ও প্রিমিয়াম ওয়ার্কস্পেস এবং স্টাডি রুম বুকিং প্ল্যাটফর্ম। এটি মূলত শিক্ষার্থী, ডেভেলপার এবং প্রফেশনালদের জন্য ডিজাইন করা হয়েছে, যাতে তারা তাদের গ্রুপ স্টাডি সেশন, বুটক্যাম্প বা একক মনোযোগের জন্য খুব সহজে পারফেক্ট রুম বা ডেস্ক খুঁজে বুকিং করতে পারেন। এই প্রজেক্টটি অত্যন্ত ডাইনামিক এবং আধুনিক ইউজার এক্সপেরিয়েন্স নিশ্চিত করে।
 
-First, run the development server:
+🌐 **লাইভ ডেমো লিংক:** [StudyNook Live Web App](https://a9-study-nook-client-side.vercel.app)  
+💻 **ক্লায়েন্ট-সাইড রিপোজিটরি:** [GitHub Client Repo](https://github.com/sabbirhossain778/A9-StudyNook-ClientSide)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📸 Project Preview
+![StudyNook Home Screen](study-nook.jpg)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 মূল ফিচারসমূহ (Core Features)
 
-## Learn More
+- **ডাইনামিক রুম বুকিং সিস্টেম (Instant Booking):** রিয়েল-টাইম ডাটাবেজ চেকিংয়ের মাধ্যমে যেকোনো স্টাডি রুম বা ডেস্ক বুক করা যায়।
+- **টাইম স্লট কনফ্লিক্ট ম্যানেজমেন্ট (Conflict Detection):** কোনো রুম যদি নির্দিষ্ট কোনো তারিখে এবং সময়ে ইতিমধ্যে বুকড থাকে, তবে অন্য কোনো ইউজার সেই একই সময়ে বুকিং করতে পারবে না।
+- **রিয়েল-টাইম সার্চ এবং ফিল্টারিং (Live Search):** হোম পেজ এবং রুম পেজে ডাইনামিক রিয়েল-টাইম সার্চিং এর ব্যবস্থা রয়েছে।
+- **নিরাপদ অথেনটিকেশন (Secure Authentication):** Better-Auth ব্যবহার করে আধুনিক এবং সুরক্ষিত লগইন, সাইনআপ ও সেশন ম্যানেজমেন্ট।
+- **মিডলওয়্যার রাউট প্রটেকশন (Route Protection):** আনঅথরাইজড ইউজারদের জন্য প্রটেক্টেড রাউটসমূহ (যেমন: Add Room, My Listings, My Bookings) সম্পূর্ণ সুরক্ষিত।
+- **ইউজার ড্যাশবোর্ড (My Listings & Bookings):** ইউজাররা তাদের নিজেদের লিস্টিং করা রুম ম্যানেজ (Edit/Delete) করতে পারেন এবং বুকিং করা রুম স্বয়ংক্রিয় কাউন্ট কমিয়ে ক্যানসেল করতে পারেন।
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ ব্যবহৃত প্রযুক্তি (Tech Stack)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### **Frontend:**
+- **Next.js 15 (App Router)** - কোর ফ্রেমওয়ার্ক হিসেবে ব্যবহৃত।
+- **Tailwind CSS** - রেসপন্সিভ এবং আধুনিক স্টাইলিংয়ের জন্য।
+- **DaisyUI & HeroUI** - চমৎকার কম্পোনেন্ট লাইব্রেরি।
+- **Better-Auth** - সিকিউর সেশন এবং ইউজার অথেনটিকেশন হ্যান্ডেল করার জন্য।
 
-## Deploy on Vercel
+### **Backend & Database:**
+- **Node.js & Express.js** - এপিআই এবং সার্ভার ম্যানেজমেন্ট।
+- **MongoDB Atlas** - ডাটা স্টোরেজ ও ডাইনামিক কোয়েরি।
+- **JSON Web Token (JWT) & jose-cjs** - ব্যাকএন্ড রাউট এবং টোকেন ভেরিফিকেশন মিডলওয়্যার।
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 প্রজেক্ট ডিপেন্ডেন্সি (Main Dependencies)
+
+### Client Side Dependencies:
+```json
+"dependencies": {
+  "next": "^15.x",
+  "react": "^19.x",
+  "react-dom": "^19.x",
+  "better-auth": "^1.x",
+  "lucide-react": "^latest",
+  "axios": "^latest",
+  "sweetalert2": "^latest"
+}
